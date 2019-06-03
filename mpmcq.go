@@ -105,7 +105,11 @@ L:
 	return true, nil
 }
 
-func (mq *MPMCQueue) Pop(timeout time.Duration) (interface{}, error) {
+func (mq *MPMCQueue) Pop() (interface{}, error) {
+	return mq.tryPop(0)
+}
+
+func (mq *MPMCQueue) tryPop(timeout time.Duration) (interface{}, error) {
 	var (
 		slot  *slot
 		pos   = atomic.LoadUint64(&mq.dequeue)
