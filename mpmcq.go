@@ -128,7 +128,8 @@ L:
 				break L
 			}
 		case dif < 0:
-			panic(`Ring buffer in compromised state during a get operation.`)
+			panic(`operation could not be completed due to negative difference between seq and pos.
+			the ring buffer is corrupted.`)
 		default:
 			pos = atomic.LoadUint64(&mq.dequeue)
 		}
